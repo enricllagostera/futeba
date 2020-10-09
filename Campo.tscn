@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Bola.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Atleta.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Campo.gd" type="Script" id=3]
+[ext_resource path="res://Bola_Fisica.tres" type="PhysicsMaterial" id=4]
+[ext_resource path="res://Time.gd" type="Script" id=5]
+[ext_resource path="res://Posicao.gd" type="Script" id=6]
+[ext_resource path="res://DebugGol.gd" type="Script" id=7]
+[ext_resource path="res://Bola.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 180 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 320, 16 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 48.6621
+
+[node name="Campo" type="Node2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="Bola" parent="." instance=ExtResource( 1 )]
+position = Vector2( 376, 192 )
+physics_material_override = ExtResource( 4 )
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 8 )
+
+[node name="Paredes" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Paredes"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/StaticBody2D"]
+position = Vector2( 0, 180 )
+shape = SubResource( 1 )
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Paredes"]
+position = Vector2( 320, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/StaticBody2D3"]
+shape = SubResource( 2 )
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Paredes"]
+position = Vector2( 320, 360 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/StaticBody2D4"]
+shape = SubResource( 2 )
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Paredes"]
+position = Vector2( 640, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/StaticBody2D2"]
+position = Vector2( 0, 180 )
+shape = SubResource( 1 )
+
+[node name="GolDireita" type="Area2D" parent="."]
+position = Vector2( 640, 176 )
+
+[node name="AreaGol" type="CollisionShape2D" parent="GolDireita"]
+shape = SubResource( 3 )
+script = ExtResource( 7 )
+
+[node name="Time" type="Node2D" parent="."]
+position = Vector2( 192, 192 )
+script = ExtResource( 5 )
+velocidade_formacao = 128
+
+[node name="Posicao1" type="Node2D" parent="Time"]
+position = Vector2( 0, -96 )
+script = ExtResource( 6 )
+
+[node name="Posicao2" type="Node2D" parent="Time"]
+position = Vector2( 0, 104 )
+script = ExtResource( 6 )
+
+[node name="Posicao3" type="Node2D" parent="Time"]
+position = Vector2( -96, 0 )
+script = ExtResource( 6 )
+
+[node name="Posicao4" type="Node2D" parent="Time"]
+position = Vector2( 88, 0 )
+script = ExtResource( 6 )
+
+[node name="Atleta1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 192, 64 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+posicao_noh = NodePath("../Time/Posicao1")
+
+[node name="Atleta2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 192, 320 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+posicao_noh = NodePath("../Time/Posicao2")
+
+[node name="Atleta3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 80, 196 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+posicao_noh = NodePath("../Time/Posicao3")
+
+[node name="Atleta4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 320, 128 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+posicao_noh = NodePath("../Time/Posicao4")
+[connection signal="body_entered" from="Bola" to="Bola" method="_on_Bola_body_entered"]
+[connection signal="body_entered" from="GolDireita" to="GolDireita/AreaGol" method="_on_GolDireita_body_entered"]
+[connection signal="body_entered" from="GolDireita" to="Bola" method="_on_GolDireita_body_entered"]
+[connection signal="body_entered" from="Atleta1" to="Atleta1" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="Atleta2" to="Atleta2" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="Atleta3" to="Atleta3" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="Atleta4" to="Atleta4" method="_on_Atleta_body_entered"]
