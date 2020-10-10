@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Bola.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Atleta.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Posicao.gd" type="Script" id=6]
 [ext_resource path="res://DebugGol.gd" type="Script" id=7]
 [ext_resource path="res://Bola.gd" type="Script" id=8]
+[ext_resource path="res://Formacao.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 180 )
@@ -75,58 +76,152 @@ position = Vector2( 640, 176 )
 shape = SubResource( 3 )
 script = ExtResource( 7 )
 
-[node name="Time" type="Node2D" parent="."]
-position = Vector2( 192, 192 )
+[node name="TimeEsquerda" type="Node2D" parent="."]
 script = ExtResource( 5 )
-velocidade_formacao = 128
 
-[node name="Posicao1" type="Node2D" parent="Time"]
+[node name="FormacaoA" type="Node2D" parent="TimeEsquerda"]
+position = Vector2( 192, 192 )
+script = ExtResource( 9 )
+velocidade_formacao = 100
+
+[node name="Posicao1" type="Node2D" parent="TimeEsquerda/FormacaoA"]
 position = Vector2( 0, -96 )
 script = ExtResource( 6 )
 
-[node name="Posicao2" type="Node2D" parent="Time"]
+[node name="Posicao2" type="Node2D" parent="TimeEsquerda/FormacaoA"]
 position = Vector2( 0, 104 )
 script = ExtResource( 6 )
 
-[node name="Posicao3" type="Node2D" parent="Time"]
+[node name="Posicao3" type="Node2D" parent="TimeEsquerda/FormacaoA"]
 position = Vector2( -96, 0 )
 script = ExtResource( 6 )
 
-[node name="Posicao4" type="Node2D" parent="Time"]
+[node name="Posicao4" type="Node2D" parent="TimeEsquerda/FormacaoA"]
 position = Vector2( 88, 0 )
 script = ExtResource( 6 )
 
-[node name="Atleta1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 192, 64 )
-mode = 2
-contacts_reported = 1
-contact_monitor = true
-posicao_noh = NodePath("../Time/Posicao1")
+[node name="FormacaoB" type="Node2D" parent="TimeEsquerda"]
+position = Vector2( 192, 192 )
+script = ExtResource( 9 )
+velocidade_formacao = 100
 
-[node name="Atleta2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 192, 320 )
-mode = 2
-contacts_reported = 1
-contact_monitor = true
-posicao_noh = NodePath("../Time/Posicao2")
+[node name="Posicao1" type="Node2D" parent="TimeEsquerda/FormacaoB"]
+position = Vector2( -96, -80 )
+script = ExtResource( 6 )
 
-[node name="Atleta3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 80, 196 )
-mode = 2
-contacts_reported = 1
-contact_monitor = true
-posicao_noh = NodePath("../Time/Posicao3")
+[node name="Posicao2" type="Node2D" parent="TimeEsquerda/FormacaoB"]
+position = Vector2( 88, 80 )
+script = ExtResource( 6 )
 
-[node name="Atleta4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 320, 128 )
+[node name="Posicao3" type="Node2D" parent="TimeEsquerda/FormacaoB"]
+position = Vector2( -96, 80 )
+script = ExtResource( 6 )
+
+[node name="Posicao4" type="Node2D" parent="TimeEsquerda/FormacaoB"]
+position = Vector2( 88, -80 )
+script = ExtResource( 6 )
+
+[node name="Atleta1" parent="TimeEsquerda" instance=ExtResource( 2 )]
+position = Vector2( 192, 96 )
 mode = 2
 contacts_reported = 1
 contact_monitor = true
-posicao_noh = NodePath("../Time/Posicao4")
+
+[node name="Atleta2" parent="TimeEsquerda" instance=ExtResource( 2 )]
+position = Vector2( 192, 296 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Atleta3" parent="TimeEsquerda" instance=ExtResource( 2 )]
+position = Vector2( 96, 192 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Atleta4" parent="TimeEsquerda" instance=ExtResource( 2 )]
+position = Vector2( 280, 192 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="TimeDireita" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 5 )
+
+[node name="FormacaoA" type="Node2D" parent="TimeDireita"]
+position = Vector2( 448, 192 )
+script = ExtResource( 9 )
+velocidade_formacao = 100
+
+[node name="Posicao1" type="Node2D" parent="TimeDireita/FormacaoA"]
+position = Vector2( 0, -96 )
+script = ExtResource( 6 )
+
+[node name="Posicao2" type="Node2D" parent="TimeDireita/FormacaoA"]
+position = Vector2( 0, 104 )
+script = ExtResource( 6 )
+
+[node name="Posicao3" type="Node2D" parent="TimeDireita/FormacaoA"]
+position = Vector2( -96, 0 )
+script = ExtResource( 6 )
+
+[node name="Posicao4" type="Node2D" parent="TimeDireita/FormacaoA"]
+position = Vector2( 88, 0 )
+script = ExtResource( 6 )
+
+[node name="FormacaoB" type="Node2D" parent="TimeDireita"]
+position = Vector2( 448, 192 )
+script = ExtResource( 9 )
+velocidade_formacao = 100
+
+[node name="Posicao1" type="Node2D" parent="TimeDireita/FormacaoB"]
+position = Vector2( -96, -80 )
+script = ExtResource( 6 )
+
+[node name="Posicao2" type="Node2D" parent="TimeDireita/FormacaoB"]
+position = Vector2( 88, 80 )
+script = ExtResource( 6 )
+
+[node name="Posicao3" type="Node2D" parent="TimeDireita/FormacaoB"]
+position = Vector2( -96, 80 )
+script = ExtResource( 6 )
+
+[node name="Posicao4" type="Node2D" parent="TimeDireita/FormacaoB"]
+position = Vector2( 88, -80 )
+script = ExtResource( 6 )
+
+[node name="Atleta1" parent="TimeDireita" instance=ExtResource( 2 )]
+position = Vector2( 192, 96 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Atleta2" parent="TimeDireita" instance=ExtResource( 2 )]
+position = Vector2( 192, 296 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Atleta3" parent="TimeDireita" instance=ExtResource( 2 )]
+position = Vector2( 96, 192 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
+
+[node name="Atleta4" parent="TimeDireita" instance=ExtResource( 2 )]
+position = Vector2( 280, 192 )
+mode = 2
+contacts_reported = 1
+contact_monitor = true
 [connection signal="body_entered" from="Bola" to="Bola" method="_on_Bola_body_entered"]
-[connection signal="body_entered" from="GolDireita" to="GolDireita/AreaGol" method="_on_GolDireita_body_entered"]
 [connection signal="body_entered" from="GolDireita" to="Bola" method="_on_GolDireita_body_entered"]
-[connection signal="body_entered" from="Atleta1" to="Atleta1" method="_on_Atleta_body_entered"]
-[connection signal="body_entered" from="Atleta2" to="Atleta2" method="_on_Atleta_body_entered"]
-[connection signal="body_entered" from="Atleta3" to="Atleta3" method="_on_Atleta_body_entered"]
-[connection signal="body_entered" from="Atleta4" to="Atleta4" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="GolDireita" to="GolDireita/AreaGol" method="_on_GolDireita_body_entered"]
+[connection signal="body_entered" from="TimeEsquerda/Atleta1" to="TimeEsquerda/Atleta1" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeEsquerda/Atleta2" to="TimeEsquerda/Atleta2" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeEsquerda/Atleta3" to="TimeEsquerda/Atleta3" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeEsquerda/Atleta4" to="TimeEsquerda/Atleta4" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeDireita/Atleta1" to="TimeDireita/Atleta1" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeDireita/Atleta2" to="TimeDireita/Atleta2" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeDireita/Atleta3" to="TimeDireita/Atleta3" method="_on_Atleta_body_entered"]
+[connection signal="body_entered" from="TimeDireita/Atleta4" to="TimeDireita/Atleta4" method="_on_Atleta_body_entered"]
