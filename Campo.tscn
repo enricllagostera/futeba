@@ -26,7 +26,7 @@ __meta__ = {
 }
 
 [node name="Bola" parent="." instance=ExtResource( 1 )]
-position = Vector2( 376, 192 )
+position = Vector2( 320, 192 )
 physics_material_override = ExtResource( 4 )
 contacts_reported = 2
 contact_monitor = true
@@ -146,8 +146,9 @@ contacts_reported = 1
 contact_monitor = true
 
 [node name="TimeDireita" type="Node2D" parent="."]
-visible = false
+modulate = Color( 0.909804, 0.517647, 0.231373, 1 )
 script = ExtResource( 5 )
+prefixo_controles = "j2"
 
 [node name="FormacaoA" type="Node2D" parent="TimeDireita"]
 position = Vector2( 448, 192 )
@@ -192,25 +193,25 @@ position = Vector2( 88, -80 )
 script = ExtResource( 6 )
 
 [node name="Atleta1" parent="TimeDireita" instance=ExtResource( 2 )]
-position = Vector2( 192, 96 )
+position = Vector2( 451, 96 )
 mode = 2
 contacts_reported = 1
 contact_monitor = true
 
 [node name="Atleta2" parent="TimeDireita" instance=ExtResource( 2 )]
-position = Vector2( 192, 296 )
+position = Vector2( 451, 296 )
 mode = 2
 contacts_reported = 1
 contact_monitor = true
 
 [node name="Atleta3" parent="TimeDireita" instance=ExtResource( 2 )]
-position = Vector2( 96, 192 )
+position = Vector2( 355, 192 )
 mode = 2
 contacts_reported = 1
 contact_monitor = true
 
 [node name="Atleta4" parent="TimeDireita" instance=ExtResource( 2 )]
-position = Vector2( 280, 192 )
+position = Vector2( 539, 192 )
 mode = 2
 contacts_reported = 1
 contact_monitor = true

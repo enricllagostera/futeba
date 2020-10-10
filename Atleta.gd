@@ -38,7 +38,7 @@ func _physics_process(delta):
 	var distancia_relativa = direcao_desejada.length()
 	var rampa_chegada = distancia_relativa / distancia_min_encaixe if distancia_relativa < distancia_min_encaixe else 1
 	var direcao = direcao_desejada.clamped(1)
-	var soltou_pique = Input.is_action_just_released("j1_acao1")
+	var soltou_pique = Input.is_action_just_released(equipe.prefixo_controles + "_acao1")
 	if soltou_pique and na_bola:
 		direcao = (bola.position - self.position).normalized()
 		velocidade = pique_poder * acumulo_pique
@@ -48,7 +48,7 @@ func _physics_process(delta):
 		apply_central_impulse(direcao * velocidade)
 		return
 	velocidade = velocidade_base
-	var carregando_chute = Input.is_action_pressed("j1_acao1") and na_bola
+	var carregando_chute = Input.is_action_pressed(equipe.prefixo_controles + "_acao1") and na_bola
 	if carregando_chute:
 		linear_velocity = direcao * velocidade * 0.5 * rampa_chegada
 		return		
@@ -66,9 +66,9 @@ func _process(delta):
 	else:
 		linear_damp = -1
 		if na_bola:
-			if Input.is_action_just_pressed("j1_acao1"):
+			if Input.is_action_just_pressed(equipe.prefixo_controles + "_acao1"):
 				acumulo_pique = 0
-			if Input.is_action_pressed("j1_acao1"):
+			if Input.is_action_pressed(equipe.prefixo_controles + "_acao1"):
 				acumulo_pique += acumulo_pique_taxa * delta
 				acumulo_pique = clamp(acumulo_pique, 0, 1)
 		else:
