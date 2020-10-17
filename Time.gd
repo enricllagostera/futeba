@@ -5,6 +5,7 @@ var atletas = {}
 export(String) var prefixo_controles = "j1"
 var bola
 onready var formacao = $FormacaoA
+onready var encaixe_goleire = $AreaGol/PosicaoGoleire
 
 
 func adicionar_atleta(atleta, posicao):
@@ -32,6 +33,7 @@ func trocar_formacao():
 	var nova_formacao = $FormacaoA if formacao == $FormacaoB else $FormacaoB
 	formacao = nova_formacao
 
+
 func _ready():
 	bola = get_parent().get_node("Bola")
 	adicionar_atleta($Atleta1, "Posicao1")
@@ -40,7 +42,10 @@ func _ready():
 	adicionar_atleta($Atleta4, "Posicao4")
 	for a in atletas.keys():
 		a.bola = bola
-		
+	$Goleire.bola = bola
+
+
 func _process(delta):
 	if Input.is_action_just_released(prefixo_controles + "_acao2"):
 		trocar_formacao()
+

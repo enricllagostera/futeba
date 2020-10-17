@@ -10,6 +10,7 @@ export var distancia_min_encaixe = 20
 var na_bola = false
 export var intervalo_recuperacao = 1.1
 export var damping_pique = 10
+export var goleire := false
 var no_pique = 0
 
 
@@ -33,7 +34,11 @@ func _on_Atleta_body_entered(body):
 
 func _physics_process(delta):
 	var velocidade = 0
-	var encaixe = equipe.encaixe_atleta(self)
+	var encaixe 
+	if goleire:
+		encaixe = equipe.encaixe_goleire
+	else:
+		encaixe = equipe.encaixe_atleta(self)
 	var direcao_desejada = encaixe.global_position - global_position
 	var distancia_relativa = direcao_desejada.length()
 	var rampa_chegada = distancia_relativa / distancia_min_encaixe if distancia_relativa < distancia_min_encaixe else 1
