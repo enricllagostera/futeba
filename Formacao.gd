@@ -1,9 +1,9 @@
 extends Node2D
 
-
+var zona_morta = 0.05
 export var velocidade_formacao = 5
 onready var equipe = get_parent()
-
+var movendo = false
 
 func _process(delta):
 	var direcao = Vector2(

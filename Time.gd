@@ -4,7 +4,7 @@ extends Node2D
 var atletas = {}
 export(String) var prefixo_controles = "j1"
 var bola
-onready var formacao = $FormacaoA
+onready var formacao = $FormacaoB
 onready var encaixe_goleire = $AreaGol/PosicaoGoleire
 
 
@@ -45,7 +45,7 @@ func _ready():
 	$Goleire.bola = bola
 
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_released(prefixo_controles + "_acao2"):
 		trocar_formacao()
 

@@ -1,7 +1,10 @@
 extends RigidBody2D
 
+export var cor_bola := Color.white
+var zona_morta = 2.5
 onready var equipe = get_parent()
 export var velocidade_base := 10
+export var desenhar_debug = true
 var bola
 var acumulo_pique = 0
 export var pique_poder = 4000
@@ -16,11 +19,15 @@ var no_pique = 0
 
 func _draw():
 	# Your draw commands here
+	if not desenhar_debug:
+		return
 	var cor = Color.blueviolet
 	cor.a = 0.2
 	if na_bola:
+		draw_circle(Vector2.ZERO, 32, cor_bola)
 		draw_circle(Vector2.ZERO, 120 * acumulo_pique, cor)
-	
+		if acumulo_pique > 0.2:
+			draw_line(Vector2.ZERO, (bola.global_position-global_position).normalized() * 128,cor_bola, 4 * acumulo_pique)
 #	draw_line(Vector2.ZERO, , Color.red, 2)
 	pass
 
@@ -53,6 +60,8 @@ func _physics_process(delta):
 		apply_central_impulse(direcao * velocidade)
 		return
 	velocidade = velocidade_base
+	$Visual.flip_h = (bola.global_position - global_position).dot(Vector2.RIGHT) <= 0
+	
 	var carregando_chute = Input.is_action_pressed(equipe.prefixo_controles + "_acao1") and na_bola
 	if carregando_chute:
 		linear_velocity = direcao * velocidade * 0.5 * rampa_chegada
@@ -62,10 +71,7 @@ func _physics_process(delta):
 
 
 func _process(delta):
-#	controles
 	var olhar_pra_bola = bola.global_position
-	$Visual.look_at(olhar_pra_bola)
-	$Visual.rotation_degrees += 90
 	if no_pique > 0:
 		no_pique -= delta
 	else:
@@ -78,5 +84,21 @@ func _process(delta):
 				acumulo_pique = clamp(acumulo_pique, 0, 1)
 		else:
 			acumulo_pique = 0
+	if linear_velocity.length_squared() > zona_morta:
+		moveu()
+	else: 
+		parou()
 	update()
 
+func moveu():
+	print("moveu")
+	var encaixe 
+	if goleire:
+		encaixe = equipe.encaixe_goleire
+	else:
+		encaixe = equipe.encaixe_atleta(self)
+	if global_position.distance_to(encaixe.global_position) > distancia_min_encaixe * 0.2:
+		$Visual.animation = "correndo"
+
+func parou():
+	$Visual.animation = "parade"
